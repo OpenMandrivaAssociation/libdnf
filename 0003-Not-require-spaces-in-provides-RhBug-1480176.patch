@@ -1,0 +1,29 @@
+From dd43131b9a7b2cc52fe5d26d6bbc65c574f1aef7 Mon Sep 17 00:00:00 2001
+From: Jaroslav Mracek <jmracek@redhat.com>
+Date: Tue, 17 Oct 2017 11:25:26 +0200
+Subject: [PATCH 3/4] Not require spaces in provides (RhBug:1480176)
+
+The patch allows provides like "dnf>1". Previously spaces were mandatory like
+"dnf > 1".
+
+https://bugzilla.redhat.com/show_bug.cgi?id=1480176
+---
+ libdnf/hy-iutil.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/libdnf/hy-iutil.c b/libdnf/hy-iutil.c
+index 15ea889..18bcad5 100644
+--- a/libdnf/hy-iutil.c
++++ b/libdnf/hy-iutil.c
+@@ -693,7 +693,7 @@ parse_reldep_str(const char *reldep_str, char **name, char **evr,
+ {
+     regex_t reg;
+     const char *regex =
+-        "^(\\S*)\\s*(<=|>=|!=|<|>|=)?\\s*(.*)$";
++        "^([^ \t\r\n\v\f<=>!]*)\\s*(<=|>=|!=|<|>|=)?\\s*(.*)$";
+     regmatch_t matches[6];
+     *cmp_type = 0;
+     int ret = 0;
+-- 
+2.13.5
+
