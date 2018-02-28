@@ -83,22 +83,6 @@ BuildArch:	noarch
 %description -n hawkey-man
 Documentation for the hawkey Python bindings.
 
-%package -n python2-hawkey
-Summary:	Python 2 bindings for the hawkey interface
-Group:		Development/Python
-Provides:	python-hawkey = %{version}-%{release}
-BuildRequires:	pkgconfig(python2)
-BuildRequires:	python2-nose
-Requires:	%{libname}%{?_isa} = %{version}-%{release}
-Requires:	hawkey-man = %{version}-%{release}
-# Fix problem with hawkey - dnf version incompatibility
-# Can be deleted for distros where only python2-dnf >= 2.0.0
-Conflicts:	python2-dnf < %{dnf_conflict}
-
-
-%description -n python2-hawkey
-Python 2 bindings for libdnf through the hawkey interface.
-
 %package -n python-hawkey
 Summary:	Python 3 bindings for the hawkey interface
 Group:		Development/Python
@@ -117,19 +101,10 @@ Python 3 bindings for libdnf through the hawkey interface.
 %prep
 %autosetup -p1
 
-mkdir build-py2
-mkdir build-py3
 
 %build
-cd build-py2
-  %cmake %{!?with_valgrind:-DDISABLE_VALGRIND=1} -DENABLE_SOLV_URPMREORDER=1 ../../
-  %make
-cd ..
-
-cd build-py3
-  %cmake -DPYTHON_DESIRED:str=3 -DWITH_GIR=0 -DWITH_MAN=0 -Dgtkdoc=0 %{!?with_valgrind:-DDISABLE_VALGRIND=1} -DENABLE_SOLV_URPMREORDER=1 ../../
-  %make
-cd ..
+%cmake -DPYTHON_DESIRED:str=3 %{!?with_valgrind:-DDISABLE_VALGRIND=1} -DENABLE_SOLV_URPMREORDER=1 ../../
+%make_build
 
 %check
 # The test suite doesn't automatically know to look at the "built"
@@ -144,25 +119,11 @@ ERROR
         exit 1
 fi
 
-cd build-py2/build
-  make ARGS="-V" test
-cd ..
+  make ARGS="-V" test -C build
 
-# FOR THE PYTHON 3 BUILD
-# Run just the Python tests, not all of them, since
-# we have coverage of the core from the first build
-cd build-py3/build/python/hawkey/tests
-  make ARGS="-V" test
-cd ..
 
 %install
-cd build-py2/build
-  %makeinstall_std
-cd
-
-cd build-py3/build
-  %makeinstall_std
-cd
+%make_install -C build
 
 
 %files -n %{libname}
@@ -182,9 +143,6 @@ cd
 
 %files -n hawkey-man
 %{_mandir}/man3/hawkey.3*
-
-%files -n python2-hawkey
-%{python2_sitearch}/hawkey/
 
 %files -n python-hawkey
 %{python3_sitearch}/hawkey/
