@@ -89,7 +89,7 @@ Documentation for the hawkey Python bindings.
 %package -n python-hawkey
 Summary:	Python 3 bindings for the hawkey interface
 Group:		Development/Python
-BuildRequires:	pkgconfig(python)
+BuildRequires:	pkgconfig(python3)
 BuildRequires:	python-nose
 Requires:	%{libname}%{?_isa} = %{version}-%{release}
 Requires:	hawkey-man = %{version}-%{release}
@@ -128,6 +128,9 @@ fi
 %install
 %make_install -C build
 
+
+# if python2 bindings exist, purge them
+rm -rf %{buildroot}%{_libdir}/python2.7
 
 %files -n %{libname}
 %{_libdir}/%{name}.so.%{major}
