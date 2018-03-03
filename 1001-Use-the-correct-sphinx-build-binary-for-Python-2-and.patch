@@ -1,0 +1,28 @@
+From c2b9539516ff075e16daab022bdf3329ef307b23 Mon Sep 17 00:00:00 2001
+From: Neal Gompa <ngompa13@gmail.com>
+Date: Sat, 3 Mar 2018 16:19:51 +0000
+Subject: [PATCH] Use the correct sphinx-build binary for Python 2 and 3
+
+---
+ docs/hawkey/CMakeLists.txt | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/docs/hawkey/CMakeLists.txt b/docs/hawkey/CMakeLists.txt
+index b3268b5..7fe8a2b 100644
+--- a/docs/hawkey/CMakeLists.txt
++++ b/docs/hawkey/CMakeLists.txt
+@@ -2,9 +2,9 @@
+ # tell sphinx-build to do them both in one go:
+ 
+ if (${PYTHON_DESIRED} STREQUAL "2")
+-    SET(SPHINX_BUILD_NAME "sphinx-build")
++    SET(SPHINX_BUILD_NAME "sphinx-build-2")
+ else()
+-    SET(SPHINX_BUILD_NAME "sphinx-build-3")
++    SET(SPHINX_BUILD_NAME "sphinx-build")
+ endif()
+ 
+ OPTION(WITH_MAN "Enables hawkey man page generation" ON)
+-- 
+2.15.1
+

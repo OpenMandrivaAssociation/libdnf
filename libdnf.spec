@@ -27,6 +27,9 @@ Patch0002:	0002-Effectively-transform-query-into-pkgset-RhBug-150036.patch
 Patch0003:	0003-Not-require-spaces-in-provides-RhBug-1480176.patch
 Patch0004:	0004-fixup-Not-require-spaces-in-provides-RhBug-1480176.patch
 
+# OpenMandriva specific changes
+Patch1001:	1001-Use-the-correct-sphinx-build-binary-for-Python-2-and.patch
+
 BuildRequires:	cmake
 BuildRequires:	libsolv-devel >= %{libsolv_version}
 BuildRequires:	pkgconfig(librepo)
