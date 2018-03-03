@@ -106,7 +106,7 @@ Python 3 bindings for libdnf through the hawkey interface.
 
 
 %build
-%cmake -DPYTHON_DESIRED:str=3 %{!?with_valgrind:-DDISABLE_VALGRIND=1} -DENABLE_SOLV_URPMREORDER=1 ../../
+%cmake -DPYTHON_DESIRED:str=3 %{!?with_valgrind:-DDISABLE_VALGRIND=1} -DENABLE_SOLV_URPMREORDER=1
 %make_build
 
 %check
