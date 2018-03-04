@@ -1,3 +1,10 @@
+# (ngompa) disable rpmlint to avoid terrible cyclic dependency problem in rpm5->rpm4 + python2->python3 transition
+# remove after rpm5->rpm4 transition is complete
+%undefine _build_pkgcheck_set
+%undefine _build_pkgcheck_srpm
+%undefine _nonzero_exit_pkgcheck_terminate_build
+###
+
 # Warning: This package is synced from Mageia and Fedora!
 
 %define libsolv_version 0.6.30-1
@@ -119,11 +126,10 @@ if [ "$(id -u)" = '0' ]; then
 Package tests cannot be run under superuser account.
 Please build the package as non-root user.
 ERROR
-        exit 1
+    exit 1
 fi
 
-  make ARGS="-V" test -C build
-
+make ARGS="-V" test -C build
 
 %install
 %make_install -C build
