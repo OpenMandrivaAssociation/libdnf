@@ -88,6 +88,7 @@ Group:		Development/Python
 BuildRequires:	python-nose
 BuildRequires:	python-sphinx
 BuildRequires:	python-sphinxcontrib-websupport
+BuildRequires:	python-setuptools
 # hawkey-devel prior to 0.6.4-3 had the man page
 Obsoletes:	hawkey-devel < 0.6.4-3
 BuildArch:	noarch
