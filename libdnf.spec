@@ -22,7 +22,7 @@
 Summary:	Library providing simplified C and Python API to libsolv
 Name:		libdnf
 Version:	0.11.1
-Release:	2
+Release:	3
 Group:		System/Libraries
 License:	LGPLv2+
 URL:		https://github.com/rpm-software-management/%{name}
@@ -38,6 +38,8 @@ Patch0004:	0004-fixup-Not-require-spaces-in-provides-RhBug-1480176.patch
 Patch1001:	1001-Use-the-correct-sphinx-build-binary-for-Python-2-and.patch
 # https://github.com/rpm-software-management/libdnf/pull/436
 Patch1002:	https://github.com/rpm-software-management/libdnf/pull/436/commits/6b2ef7ad4ed730dc74b97ffd7ef0ec4b66639226.patch
+# https://github.com/rpm-software-management/libdnf/pull/442
+Patch1003:	libdnf-armdetection.patch
 
 BuildRequires:	cmake
 BuildRequires:	libsolv-devel >= %{libsolv_version}
@@ -115,7 +117,6 @@ Python 3 bindings for libdnf through the hawkey interface.
 
 %prep
 %autosetup -p1
-
 
 %build
 %cmake -DPYTHON_DESIRED:str=3 %{!?with_valgrind:-DDISABLE_VALGRIND=1} -DENABLE_SOLV_URPMREORDER=1
