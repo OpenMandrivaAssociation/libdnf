@@ -55,6 +55,11 @@ BuildRequires:	pkgconfig(rpm) >= 4.11.0
 BuildRequires:	pkgconfig(popt)
 BuildConflicts:	pkgconfig(rpm) >= 5
 
+# Bad Things(tm) happen if libdnf with armv8 detection is used
+# in conjunction with a build of dnf that doesn't know about
+# armv8
+Conflicts:	dnf < 2.7.5-2
+
 %description
 A library providing simplified C and Python API to libsolv.
 
