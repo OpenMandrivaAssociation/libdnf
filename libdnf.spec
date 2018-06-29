@@ -47,6 +47,7 @@ BuildRequires:	pkgconfig(gobject-introspection-1.0)
 BuildRequires:	pkgconfig(modulemd)
 BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	pkgconfig(json-c)
+BuildRequires:	pkgconfig(cppunit)
 BuildRequires:	swig
 BuildRequires:	pkgconfig(rpm) >= 4.11.0
 BuildRequires:	pkgconfig(popt)
