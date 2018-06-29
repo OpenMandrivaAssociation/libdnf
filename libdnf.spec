@@ -44,6 +44,7 @@ BuildRequires:	valgrind
 BuildRequires:	pkgconfig(gio-unix-2.0) >= 2.46.0
 BuildRequires:	pkgconfig(gtk-doc)
 BuildRequires:	pkgconfig(gobject-introspection-1.0)
+BuildRequires:	pkgconfig(modulemd)
 BuildRequires:	pkgconfig(rpm) >= 4.11.0
 BuildRequires:	pkgconfig(popt)
 BuildConflicts:	pkgconfig(rpm) >= 5
