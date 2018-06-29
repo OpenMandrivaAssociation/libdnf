@@ -1,6 +1,6 @@
-diff -up libdnf-0.11.1/libdnf/hy-util.c.1003 libdnf-0.11.1/libdnf/hy-util.c
---- libdnf-0.11.1/libdnf/hy-util.c.1003	2017-10-16 07:00:54.000000000 +0000
-+++ libdnf-0.11.1/libdnf/hy-util.c	2018-04-10 16:02:34.138585617 +0000
+diff -up libdnf-0.15.1/libdnf/hy-util.cpp.2~ libdnf-0.15.1/libdnf/hy-util.cpp
+--- libdnf-0.15.1/libdnf/hy-util.cpp.2~	2018-06-26 16:08:21.000000000 +0200
++++ libdnf-0.15.1/libdnf/hy-util.cpp	2018-06-29 01:28:43.124164316 +0200
 @@ -1,5 +1,6 @@
  /*
   * Copyright (C) 2012-2013 Red Hat, Inc.
@@ -8,7 +8,8 @@ diff -up libdnf-0.11.1/libdnf/hy-util.c.1003 libdnf-0.11.1/libdnf/hy-util.c
   *
   * Licensed under the GNU Lesser General Public License Version 2.1
   *
-@@ -23,6 +24,8 @@
+@@ -21,7 +22,9 @@
+ #include <errno.h>
  #include <stdlib.h>
  #include <string.h>
 +#include <ctype.h>
@@ -17,9 +18,9 @@ diff -up libdnf-0.11.1/libdnf/hy-util.c.1003 libdnf-0.11.1/libdnf/hy-util.c
  
  // hawkey
  #include "dnf-types.h"
-@@ -33,39 +35,21 @@
- #include "hy-subject-private.h"
- #include "hy-util.h"
+@@ -33,38 +36,20 @@
+ 
+ #include <memory>
  
 -enum _dnf_sack_cpu_flags {
 -    ARM_NEON = 1 << 0,
@@ -53,7 +54,6 @@ diff -up libdnf-0.11.1/libdnf/hy-util.c.1003 libdnf-0.11.1/libdnf/hy-util.c
 -    g_free(cpuinfo);
 -    return 0;
 -}
--
 +/* ARM specific Defines may be missing on non-ARM devices,
 + * AT_HWCAP2 is missing on old glibc (<2.18) */
 +#ifndef AT_HWCAP2
@@ -68,11 +68,10 @@ diff -up libdnf-0.11.1/libdnf/hy-util.c.1003 libdnf-0.11.1/libdnf/hy-util.c
 +#ifndef HWCAP2_AES
 +#define HWCAP2_AES	(1<<0)
 +#endif
-+ 
+ 
  const char *
  hy_chksum_name(int chksum_type)
- {
-@@ -119,25 +103,22 @@ hy_detect_arch(char **arch)
+@@ -119,25 +104,22 @@ hy_detect_arch(char **arch)
      if (uname(&un) < 0)
          return DNF_ERROR_FAILED;
  

@@ -13,33 +13,26 @@
 # Keep valgrind tests switched off for now
 %bcond_with valgrind
 
-%define major 1
-%define girapi %{major}.0
+%define major 2
 %define libname %mklibname dnf %{major}
-%define girname %mklibname dnf-gir %{girapi}
+%define oldgirname %mklibname dnf-gir 1.0
 %define devname %mklibname dnf -d
 
 Summary:	Library providing simplified C and Python API to libsolv
 Name:		libdnf
-Version:	0.11.1
-Release:	3
+Version:	0.15.1
+Release:	1
 Group:		System/Libraries
 License:	LGPLv2+
 URL:		https://github.com/rpm-software-management/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-# Backports from upstream
-Patch0001:	0001-DnfContext-DnfRepo-Add-Clean-up-for-cache-directorie.patch
-Patch0002:	0002-Effectively-transform-query-into-pkgset-RhBug-150036.patch
-Patch0003:	0003-Not-require-spaces-in-provides-RhBug-1480176.patch
-Patch0004:	0004-fixup-Not-require-spaces-in-provides-RhBug-1480176.patch
-
 # OpenMandriva specific changes
 Patch1001:	1001-Use-the-correct-sphinx-build-binary-for-Python-2-and.patch
-# https://github.com/rpm-software-management/libdnf/pull/436
-Patch1002:	https://github.com/rpm-software-management/libdnf/pull/436/commits/6b2ef7ad4ed730dc74b97ffd7ef0ec4b66639226.patch
 # https://github.com/rpm-software-management/libdnf/pull/442
 Patch1003:	libdnf-armdetection.patch
+# Add znver1 architecture support
+Patch1004:	libdnf-0.15.1-znver1.patch
 
 BuildRequires:	cmake
 BuildRequires:	libsolv-devel >= %{libsolv_version}
@@ -67,25 +60,17 @@ A library providing simplified C and Python API to libsolv.
 Summary:	Package library providing simplified interface to libsolv
 Group:		System/Libraries
 Requires:	%{mklibname solv 0}%{?_isa} >= %{libsolv_version}
+Obsoletes:	%{oldgirname} < %{EVRD}
 
 %description -n %{libname}
 This library provides a simple interface to libsolv and is currently
 used by PackageKit and rpm-ostree.
-
-%package -n %{girname}
-Summary:	GObject Introspection interface description for libhif
-Group:		System/Libraries
-Requires:	%{libname}%{?_isa} = %{version}-%{release}
-
-%description -n %{girname}
-GObject Introspection interface description for libhif.
 
 %package -n %{devname}
 Summary:	Development files for %{name}
 Group:		Development/C
 Provides:	%{name}-devel%{?_isa} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
-Requires:	%{girname}%{?_isa} = %{version}-%{release}
 Requires:	%{libname}%{?_isa} = %{version}-%{release}
 
 %description -n %{devname}
@@ -120,6 +105,15 @@ Conflicts:	python-dnf < %{dnf_conflict}
 %description -n python-hawkey
 Python 3 bindings for libdnf through the hawkey interface.
 
+%package -n python-libdnf
+Summary:	Python 3 bindings for libdnf
+Group:		Development/Python
+BuildRequires:	pkgconfig(python3)
+Requires:	%{libname}%{?_isa} = %{version}-%{release}
+
+%description -n python-libdnf
+Python 3 bindings for libdnf
+
 %prep
 %autosetup -p1
 
@@ -152,20 +146,19 @@ rm -rf %{buildroot}%{_libdir}/python2.7
 %files -n %{libname}
 %{_libdir}/%{name}.so.%{major}
 
-%files -n %{girname}
-%{_libdir}/girepository-1.0/Dnf-%{girapi}.typelib
-
 %files -n %{devname}
 %license COPYING
-%doc README.md AUTHORS NEWS
+%doc README.md AUTHORS
 %{_libdir}/%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 %{_includedir}/%{name}/
 %doc %{_datadir}/gtk-doc/html/%{name}/
-%{_datadir}/gir-1.0/Dnf-*.gir
 
 %files -n hawkey-man
 %{_mandir}/man3/hawkey.3*
 
 %files -n python-hawkey
 %{python3_sitearch}/hawkey/
+
+%files -n python-libdnf
+%{python3_sitearch}/libdnf/
