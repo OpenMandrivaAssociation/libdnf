@@ -1,0 +1,29 @@
+diff -up libdnf-0.15.2/bindings/python/CMakeLists.txt.1~ libdnf-0.15.2/bindings/python/CMakeLists.txt
+--- libdnf-0.15.2/bindings/python/CMakeLists.txt.1~	2018-06-29 12:04:40.000000000 +0200
++++ libdnf-0.15.2/bindings/python/CMakeLists.txt	2018-07-02 14:00:23.046467674 +0200
+@@ -34,7 +34,7 @@ SET_SOURCE_FILES_PROPERTIES (../swig/${C
+ SWIG_ADD_MODULE (${CONFIG_NAME} python ../swig/${CONFIG_NAME}.i)
+ SWIG_LINK_LIBRARIES (${CONFIG_NAME} libdnf)
+ SWIG_LINK_LIBRARIES (${CONFIG_NAME} ${PYTHON_LIBRARY})
+-INSTALL (TARGETS _${CONFIG_NAME} LIBRARY DESTINATION ${PYTHON_INSTALL_DIR}/libdnf)
++INSTALL (TARGETS ${CONFIG_NAME} LIBRARY DESTINATION ${PYTHON_INSTALL_DIR}/libdnf)
+ INSTALL (FILES ${CMAKE_BINARY_DIR}/bindings/python/${CONFIG_NAME}.py DESTINATION ${PYTHON_INSTALL_DIR}/libdnf)
+ 
+ SET_SOURCE_FILES_PROPERTIES (../swig/utils.i PROPERTIES CPLUSPLUS ON)
+@@ -42,14 +42,14 @@ SWIG_ADD_MODULE (utils python ../swig/ut
+ SWIG_LINK_LIBRARIES (utils libdnf)
+ SWIG_LINK_LIBRARIES (utils ${PYTHON_LIBRARY})
+ SWIG_LINK_LIBRARIES (utils ${SQLite3_LIBRARIES})
+-INSTALL (TARGETS _utils DESTINATION ${PYTHON_INSTALL_DIR}/libdnf)
++INSTALL (TARGETS utils DESTINATION ${PYTHON_INSTALL_DIR}/libdnf)
+ INSTALL (FILES ${CMAKE_BINARY_DIR}/bindings/python/utils.py DESTINATION ${PYTHON_INSTALL_DIR}/libdnf)
+ 
+ SET_SOURCE_FILES_PROPERTIES (../swig/transaction.i PROPERTIES CPLUSPLUS ON)
+ SWIG_ADD_MODULE (transaction python ../swig/transaction.i)
+ SWIG_LINK_LIBRARIES (transaction libdnf)
+ SWIG_LINK_LIBRARIES (transaction ${PYTHON_LIBRARY})
+-INSTALL (TARGETS _transaction DESTINATION ${PYTHON_INSTALL_DIR}/libdnf)
++INSTALL (TARGETS transaction DESTINATION ${PYTHON_INSTALL_DIR}/libdnf)
+ INSTALL (FILES ${CMAKE_BINARY_DIR}/bindings/python/transaction.py DESTINATION ${PYTHON_INSTALL_DIR}/libdnf)
+ 
+ configure_file(__init__.py ${CMAKE_CURRENT_BINARY_DIR}/__init__.py COPYONLY)
