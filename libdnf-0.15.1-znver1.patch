@@ -51,3 +51,24 @@ diff -up libdnf-0.15.1/libdnf/hy-util.cpp.omv~ libdnf-0.15.1/libdnf/hy-util.cpp
      *arch = g_strdup(un.machine);
      return 0;
  }
+diff -up libdnf-0.15.2/libdnf/dnf-context.cpp.omv~ libdnf-0.15.2/libdnf/dnf-context.cpp
+--- libdnf-0.15.2/libdnf/dnf-context.cpp.omv~	2018-07-03 13:20:48.572368141 +0200
++++ libdnf-0.15.2/libdnf/dnf-context.cpp	2018-07-03 13:21:25.184365484 +0200
+@@ -70,7 +70,7 @@ static const struct {
+     { "arm",        { "armv5tejl", "armv5tel", "armv5tl", "armv6l", "armv7l", "armv8l", NULL } },
+     { "armhfp",     { "armv7hl", "armv7hnl", "armv8hl", "armv8hnl", "armv8hcnl", NULL } },
+     { "i386",       { "i386", "athlon", "geode", "i386",
+-                      "i486", "i586", "i686", NULL } },
++                      "i486", "i586", "i686", "znver1_32", NULL } },
+     { "ia64",       { "ia64", NULL } },
+     { "mips",       { "mips", NULL } },
+     { "mipsel",     { "mipsel", NULL } },
+@@ -87,7 +87,7 @@ static const struct {
+     { "sh4",        { "sh4", "sh4a", NULL } },
+     { "sparc",      { "sparc", "sparc64", "sparc64v", "sparcv8",
+                       "sparcv9", "sparcv9v", NULL } },
+-    { "x86_64",     { "x86_64", "amd64", "ia32e", NULL } },
++    { "x86_64",     { "x86_64", "amd64", "ia32e", "znver1", NULL } },
+     { NULL,         { NULL } }
+ };
+ 
