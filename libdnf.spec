@@ -20,8 +20,8 @@
 
 Summary:	Library providing simplified C and Python API to libsolv
 Name:		libdnf
-Version:	0.15.2
-Release:	2
+Version:	0.16.1
+Release:	1
 Group:		System/Libraries
 License:	LGPLv2+
 URL:		https://github.com/rpm-software-management/%{name}
@@ -147,6 +147,7 @@ make ARGS="-V" test -C build
 %install
 %make_install -C build
 
+%find_lang %{name}
 
 # if python2 bindings exist, purge them
 rm -rf %{buildroot}%{_libdir}/python2.7
@@ -154,7 +155,7 @@ rm -rf %{buildroot}%{_libdir}/python2.7
 %files -n %{libname}
 %{_libdir}/%{name}.so.%{major}
 
-%files -n %{devname}
+%files -n %{devname} -f %{name}.lang
 %license COPYING
 %doc README.md AUTHORS
 %{_libdir}/%{name}.so
