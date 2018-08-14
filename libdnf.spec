@@ -20,7 +20,7 @@
 
 Summary:	Library providing simplified C and Python API to libsolv
 Name:		libdnf
-Version:	0.17.0
+Version:	0.17.2
 Release:	1
 Group:		System/Libraries
 License:	LGPLv2+
@@ -120,13 +120,13 @@ BuildRequires:	pkgconfig(python3)
 Requires:	%{libname}%{?_isa} = %{version}-%{release}
 
 %description -n python-libdnf
-Python 3 bindings for libdnf
+Python 3 bindings for libdnf.
 
 %prep
 %autosetup -p1
 
 %build
-%cmake -DPYTHON_DESIRED:str=3 %{!?with_valgrind:-DDISABLE_VALGRIND=1} -DENABLE_SOLV_URPMREORDER=1
+%cmake -DPYTHON_DESIRED:str=3 %{!?with_valgrind:-DDISABLE_VALGRIND=1}
 %make_build
 
 %check
