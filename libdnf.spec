@@ -27,9 +27,6 @@ License:	LGPLv2+
 URL:		https://github.com/rpm-software-management/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
-# Fixes for upstream
-Patch0:		libdnf-0.15.2-buildfix.patch
-
 # OpenMandriva specific changes
 Patch1001:	1001-Use-the-correct-sphinx-build-binary-for-Python-2-and.patch
 # https://github.com/rpm-software-management/libdnf/pull/442
