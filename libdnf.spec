@@ -26,6 +26,8 @@ Group:		System/Libraries
 License:	LGPLv2+
 URL:		https://github.com/rpm-software-management/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
+# Fixes for upstream
+Patch0:		libdnf-0.15.2-buildfix.patch
 
 # OpenMandriva specific changes
 Patch1001:	1001-Use-the-correct-sphinx-build-binary-for-Python-2-and.patch
@@ -102,7 +104,7 @@ Group:		Development/Python
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	python-nose
 Requires:	%{libname}%{?_isa} = %{version}-%{release}
-Requires:	hawkey-man = %{version}-%{release}
+Recommends:	hawkey-man = %{version}-%{release}
 # Fix problem with hawkey - dnf version incompatibility
 # Can be deleted for distros where only python3-dnf >= 2.0.0
 Conflicts:	python3-dnf < %{dnf_conflict}
