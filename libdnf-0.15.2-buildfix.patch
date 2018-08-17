@@ -1,6 +1,6 @@
 diff -Naur libdnf-0.17.2/bindings/python/CMakeLists.txt libdnf-0.17.2.tpg/bindings/python/CMakeLists.txt
 --- libdnf-0.17.2/bindings/python/CMakeLists.txt	2018-08-13 14:48:38.000000000 +0000
-+++ libdnf-0.17.2.tpg/bindings/python/CMakeLists.txt	2018-08-16 15:07:06.267397815 +0000
++++ libdnf-0.17.2.tpg/bindings/python/CMakeLists.txt	2018-08-17 11:24:59.319262162 +0000
 @@ -20,7 +20,7 @@
  SWIG_ADD_MODULE (${CONFIG_NAME} python ../swig/${CONFIG_NAME}.i)
  SWIG_LINK_LIBRARIES (${CONFIG_NAME} libdnf)
@@ -10,6 +10,15 @@ diff -Naur libdnf-0.17.2/bindings/python/CMakeLists.txt libdnf-0.17.2.tpg/bindin
  INSTALL (FILES ${CMAKE_BINARY_DIR}/bindings/python/${CONFIG_NAME}.py DESTINATION ${PYTHON_INSTALL_DIR}/libdnf)
  
  SET (SMARTCOLS_NAME "smartcols")
+@@ -28,7 +28,7 @@
+ SWIG_ADD_MODULE (${SMARTCOLS_NAME} python ../swig/${SMARTCOLS_NAME}.i)
+ SWIG_LINK_LIBRARIES (${SMARTCOLS_NAME} libdnf)
+ SWIG_LINK_LIBRARIES (${SMARTCOLS_NAME} ${PYTHON_LIBRARY})
+-INSTALL (TARGETS _${SMARTCOLS_NAME} DESTINATION ${PYTHON_INSTALL_DIR}/libdnf)
++INSTALL (TARGETS ${SMARTCOLS_NAME} DESTINATION ${PYTHON_INSTALL_DIR}/libdnf)
+ INSTALL (FILES ${CMAKE_BINARY_DIR}/bindings/python/${SMARTCOLS_NAME}.py DESTINATION ${PYTHON_INSTALL_DIR}/libdnf)
+ 
+ SET_SOURCE_FILES_PROPERTIES (../swig/utils.i PROPERTIES CPLUSPLUS ON)
 @@ -36,14 +36,14 @@
  SWIG_LINK_LIBRARIES (utils libdnf)
  SWIG_LINK_LIBRARIES (utils ${PYTHON_LIBRARY})
