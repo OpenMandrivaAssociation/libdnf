@@ -28,6 +28,8 @@ URL:		https://github.com/rpm-software-management/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Fixes for upstream
 Patch0:		libdnf-0.15.2-buildfix.patch
+# Fix build with current cmake
+Patch1:		libdnf-0.17.2-smartcols-linkage.patch
 
 # OpenMandriva specific changes
 Patch1001:	1001-Use-the-correct-sphinx-build-binary-for-Python-2-and.patch

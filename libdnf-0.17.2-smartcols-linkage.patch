@@ -1,0 +1,27 @@
+diff -up libdnf-0.17.2/bindings/python/CMakeLists.txt.omv~ libdnf-0.17.2/bindings/python/CMakeLists.txt
+--- libdnf-0.17.2/bindings/python/CMakeLists.txt.omv~	2018-08-22 00:10:32.230385077 +0200
++++ libdnf-0.17.2/bindings/python/CMakeLists.txt	2018-08-22 00:10:43.273436015 +0200
+@@ -26,7 +26,7 @@ INSTALL (FILES ${CMAKE_BINARY_DIR}/bindi
+ SET (SMARTCOLS_NAME "smartcols")
+ SET_SOURCE_FILES_PROPERTIES (../swig/${SMARTCOLS_NAME}.i PROPERTIES CPLUSPLUS ON)
+ SWIG_ADD_MODULE (${SMARTCOLS_NAME} python ../swig/${SMARTCOLS_NAME}.i)
+-SWIG_LINK_LIBRARIES (${SMARTCOLS_NAME} libdnf)
++#SWIG_LINK_LIBRARIES (${SMARTCOLS_NAME} libdnf)
+ SWIG_LINK_LIBRARIES (${SMARTCOLS_NAME} ${PYTHON_LIBRARY})
+ INSTALL (TARGETS ${SMARTCOLS_NAME} DESTINATION ${PYTHON_INSTALL_DIR}/libdnf)
+ INSTALL (FILES ${CMAKE_BINARY_DIR}/bindings/python/${SMARTCOLS_NAME}.py DESTINATION ${PYTHON_INSTALL_DIR}/libdnf)
+diff -up libdnf-0.17.2/CMakeLists.txt.omv~ libdnf-0.17.2/CMakeLists.txt
+diff -up libdnf-0.17.2/libdnf/CMakeLists.txt.omv~ libdnf-0.17.2/libdnf/CMakeLists.txt
+--- libdnf-0.17.2/libdnf/CMakeLists.txt.omv~	2018-08-22 00:12:02.334799801 +0200
++++ libdnf-0.17.2/libdnf/CMakeLists.txt	2018-08-22 00:13:59.353335692 +0200
+@@ -67,7 +67,7 @@ TARGET_LINK_LIBRARIES(libdnf
+                       ${SQLite3_LIBRARIES}
+                       ${JSONC_LIBRARIES}
+                       ${LIBMODULEMD_LIBRARIES}
+-                      ${SMARTCOLS_LIBRARIES})
++                      -lsmartcols)
+ 
+ if (ENABLE_RHSM_SUPPORT)
+     target_link_libraries (libdnf ${RHSM_LIBRARIES})
+diff -up libdnf-0.17.2/libdnf/utils/CMakeLists.txt.omv~ libdnf-0.17.2/libdnf/utils/CMakeLists.txt
+diff -up libdnf-0.17.2/libdnf/utils/smartcols/CMakeLists.txt.omv~ libdnf-0.17.2/libdnf/utils/smartcols/CMakeLists.txt
