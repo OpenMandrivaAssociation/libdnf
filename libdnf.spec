@@ -38,7 +38,8 @@ Patch1003:	libdnf-armdetection.patch
 # Add znver1 architecture support
 Patch1004:	libdnf-0.15.1-znver1.patch
 
-BuildRequires:	cmake
+BuildRequires:	cmake >= 3.12.1
+BuildRequires:	ninja
 BuildRequires:	libsolv-devel >= %{libsolv_version}
 BuildRequires:	pkgconfig(librepo)
 BuildRequires:	pkgconfig(check)
@@ -128,8 +129,8 @@ Python 3 bindings for libdnf.
 %autosetup -p1
 
 %build
-%cmake -DPYTHON_DESIRED:str=3 %{!?with_valgrind:-DDISABLE_VALGRIND=1}
-%make_build
+%cmake -DPYTHON_DESIRED:str=3 %{!?with_valgrind:-DDISABLE_VALGRIND=1} -G Ninja
+%ninja_build
 
 %check
 # The test suite doesn't automatically know to look at the "built"
@@ -144,10 +145,10 @@ ERROR
     exit 1
 fi
 
-make ARGS="-V" test -C build
+ARGS="-V" %ninja_build test -C build
 
 %install
-%make_install -C build
+%ninja_install -C build
 
 %find_lang %{name}
 
