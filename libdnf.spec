@@ -57,6 +57,7 @@ BuildRequires:	swig
 BuildRequires:	pkgconfig(rpm) >= 4.11.0
 BuildRequires:	pkgconfig(popt)
 BuildRequires:	pkgconfig(smartcols)
+BuildRequires:	gpgme-devel
 BuildConflicts:	pkgconfig(rpm) >= 5
 
 # Bad Things(tm) happen if libdnf with armv8 detection is used
