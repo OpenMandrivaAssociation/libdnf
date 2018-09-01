@@ -1,0 +1,13 @@
+diff -up libdnf-0.18.0/libdnf/CMakeLists.txt.omv~ libdnf-0.18.0/libdnf/CMakeLists.txt
+--- libdnf-0.18.0/libdnf/CMakeLists.txt.omv~	2018-09-01 02:42:03.121005296 +0200
++++ libdnf-0.18.0/libdnf/CMakeLists.txt	2018-09-01 02:42:19.948069885 +0200
+@@ -67,7 +67,7 @@ TARGET_LINK_LIBRARIES(libdnf
+                       ${SQLite3_LIBRARIES}
+                       ${JSONC_LIBRARIES}
+                       ${LIBMODULEMD_LIBRARIES}
+-                      ${SMARTCOLS_LIBRARIES})
++                      ${SMARTCOLS_LIBRARIES} gpgme)
+ 
+ if (ENABLE_RHSM_SUPPORT)
+     target_link_libraries (libdnf ${RHSM_LIBRARIES})
+diff -up libdnf-0.18.0/libdnf/repo/CMakeLists.txt.omv~ libdnf-0.18.0/libdnf/repo/CMakeLists.txt

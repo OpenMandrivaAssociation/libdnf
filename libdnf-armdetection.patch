@@ -1,6 +1,6 @@
-diff -up libdnf-0.15.1/libdnf/hy-util.cpp.2~ libdnf-0.15.1/libdnf/hy-util.cpp
---- libdnf-0.15.1/libdnf/hy-util.cpp.2~	2018-06-26 16:08:21.000000000 +0200
-+++ libdnf-0.15.1/libdnf/hy-util.cpp	2018-06-29 01:28:43.124164316 +0200
+diff -up libdnf-0.18.0/libdnf/hy-util.cpp.3~ libdnf-0.18.0/libdnf/hy-util.cpp
+--- libdnf-0.18.0/libdnf/hy-util.cpp.3~	2018-08-31 12:35:56.000000000 +0200
++++ libdnf-0.18.0/libdnf/hy-util.cpp	2018-09-01 02:38:26.812172967 +0200
 @@ -1,5 +1,6 @@
  /*
   * Copyright (C) 2012-2013 Red Hat, Inc.
@@ -8,17 +8,18 @@ diff -up libdnf-0.15.1/libdnf/hy-util.cpp.2~ libdnf-0.15.1/libdnf/hy-util.cpp
   *
   * Licensed under the GNU Lesser General Public License Version 2.1
   *
-@@ -21,7 +22,9 @@
+@@ -21,8 +22,10 @@
  #include <errno.h>
  #include <stdlib.h>
  #include <string.h>
 +#include <ctype.h>
  #include <sys/utsname.h>
+ #include <sys/stat.h>
 +#include <sys/auxv.h>
  
  // hawkey
  #include "dnf-types.h"
-@@ -33,38 +36,20 @@
+@@ -34,38 +37,20 @@
  
  #include <memory>
  
@@ -71,7 +72,7 @@ diff -up libdnf-0.15.1/libdnf/hy-util.cpp.2~ libdnf-0.15.1/libdnf/hy-util.cpp
  
  const char *
  hy_chksum_name(int chksum_type)
-@@ -119,25 +104,22 @@ hy_detect_arch(char **arch)
+@@ -120,25 +105,22 @@ hy_detect_arch(char **arch)
      if (uname(&un) < 0)
          return DNF_ERROR_FAILED;
  
