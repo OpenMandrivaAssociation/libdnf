@@ -1,0 +1,65 @@
+From 48f764a5fede5562415e334dd55053c0d20cf407 Mon Sep 17 00:00:00 2001
+From: Marek Blaha <mblaha@redhat.com>
+Date: Fri, 10 Aug 2018 05:51:24 +0200
+Subject: [PATCH] [query] Reldeps can contain a space char (RhBug:1612462)
+
+In dnf repoquery --whatrequires pkg command, the requirements are
+taken from provides AND files of pkg. In case pkg.files contains
+a file with space in its name, the query would return all packages.
+
+The simple reproducer:
+
+import dnf
+
+base = dnf.base.Base()
+base.read_all_repos()
+base.fill_sack()
+
+q = base.sack.query().filter(requires=["hello world.txt"])
+print(len(q))
+
+https://bugzilla.redhat.com/show_bug.cgi?id=1612462
+---
+ libdnf/repo/DependencySplitter.cpp       | 10 ++++++++--
+ python/hawkey/tests/tests/test_reldep.py |  6 ++++++
+ 2 files changed, 14 insertions(+), 2 deletions(-)
+
+diff --git a/libdnf/repo/DependencySplitter.cpp b/libdnf/repo/DependencySplitter.cpp
+index 3e6d369fb..880cf5219 100644
+--- a/libdnf/repo/DependencySplitter.cpp
++++ b/libdnf/repo/DependencySplitter.cpp
+@@ -70,9 +70,15 @@ DependencySplitter::parse(const char * reldepStr)
+     cmpType = 0;
+     int evrLen = matchResult.getMatchedLen(EVR);
+     int cmpTypeLen = matchResult.getMatchedLen(CMP_TYPE);
+-    if (evrLen < 1 && cmpTypeLen < 1)
++    if (cmpTypeLen < 1) {
++        if (evrLen > 0) {
++            // name contains the space char, e.g. filename like "hello world.jpg"
++            evr.clear();
++            name = reldepStr;
++        }
+         return true;
+-    if (!(evrLen > 0 && cmpTypeLen > 0))
++    }
++    if (evrLen < 1)
+         return false;
+ 
+     return getCmpFlags(&cmpType, matchResult.getMatchedString(CMP_TYPE));
+diff --git a/python/hawkey/tests/tests/test_reldep.py b/python/hawkey/tests/tests/test_reldep.py
+index 58af3e047..2ed9052c3 100644
+--- a/python/hawkey/tests/tests/test_reldep.py
++++ b/python/hawkey/tests/tests/test_reldep.py
+@@ -45,6 +45,12 @@ def test_custom_creation(self):
+         reldep_str = "(foo if bar)"
+         reldep = hawkey.Reldep(self.sack, reldep_str)
+         self.assertEqual(reldep_str, str(reldep))
++        reldep_str = "take a space.txt"
++        reldep = hawkey.Reldep(self.sack, reldep_str)
++        self.assertEqual(reldep_str, str(reldep))
++        reldep_str = "font(:lang=en)"
++        reldep = hawkey.Reldep(self.sack, reldep_str)
++        self.assertEqual(reldep_str, str(reldep))
+ 
+     def test_custom_creation_fail(self):
+         reldep_str = "P-lib >="
