@@ -20,16 +20,12 @@
 
 Summary:	Library providing simplified C and Python API to libsolv
 Name:		libdnf
-Version:	0.18.0
-Release:	2
+Version:	0.20.0
+Release:	1
 Group:		System/Libraries
 License:	LGPLv2+
 URL:		https://github.com/rpm-software-management/%{name}
 Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# Fix		linkage
-Patch1:		libdnf-0.18.0-gpgme-linkage.patch
-# Fix repoquery for file names containing spaces
-Patch2:		https://github.com/rpm-software-management/libdnf/commit/48f764a5fede5562415e334dd55053c0d20cf407.patch
 
 # OpenMandriva specific changes
 Patch1001:	1001-Use-the-correct-sphinx-build-binary-for-Python-2-and.patch
