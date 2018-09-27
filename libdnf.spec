@@ -45,7 +45,6 @@ BuildRequires:	pkgconfig(check)
 BuildRequires:	valgrind
 %endif
 BuildRequires:	pkgconfig(gio-unix-2.0) >= 2.46.0
-BuildRequires:	pkgconfig(gtk-doc)
 BuildRequires:	pkgconfig(modulemd) >= %{libmodulemd_version}
 BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	pkgconfig(json-c)
@@ -115,7 +114,7 @@ Python 3 bindings for libdnf.
 %autosetup -p1
 
 %build
-%cmake -DPYTHON_DESIRED:str=3 -DWITH_GIR=0 -DWITH_MAN=0 -Dgtkdoc=0 %{!?with_valgrind:-DDISABLE_VALGRIND=1} -G Ninja
+%cmake -DPYTHON_DESIRED:str=3 -DWITH_MAN=0 -DWITH_GTKDOC=0 %{!?with_valgrind:-DDISABLE_VALGRIND=1} -G Ninja
 %ninja_build
 
 %check
