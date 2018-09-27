@@ -45,6 +45,7 @@ BuildRequires:	pkgconfig(check)
 BuildRequires:	valgrind
 %endif
 BuildRequires:	pkgconfig(gio-unix-2.0) >= 2.46.0
+BuildRequires:	pkgconfig(gtk-doc)
 BuildRequires:	pkgconfig(modulemd) >= %{libmodulemd_version}
 BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	pkgconfig(json-c)
