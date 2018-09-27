@@ -61,6 +61,8 @@ BuildConflicts:	pkgconfig(rpm) >= 5
 # in conjunction with a build of dnf that doesn't know about
 # armv8
 Conflicts:	dnf < 2.7.5-2
+%rename	hawkey-man
+Obsoletes:	hawkey-devel < 0.6.4-3
 
 %description
 A library providing simplified C and Python API to libsolv.
@@ -86,27 +88,12 @@ Requires:	pkgconfig(libsolv)
 %description -n %{devname}
 Development files for %{name}.
 
-%package -n hawkey-man
-Summary:	Documentation for the hawkey Python bindings
-Group:		Development/Python
-BuildRequires:	python-nose
-BuildRequires:	python-sphinx
-BuildRequires:	python-requests
-BuildRequires:	python-setuptools
-# hawkey-devel prior to 0.6.4-3 had the man page
-Obsoletes:	hawkey-devel < 0.6.4-3
-BuildArch:	noarch
-
-%description -n hawkey-man
-Documentation for the hawkey Python bindings.
-
 %package -n python-hawkey
 Summary:	Python 3 bindings for the hawkey interface
 Group:		Development/Python
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	python-nose
 Requires:	%{libname}%{?_isa} = %{version}-%{release}
-Recommends:	hawkey-man = %{version}-%{release}
 # Fix problem with hawkey - dnf version incompatibility
 # Can be deleted for distros where only python3-dnf >= 2.0.0
 Conflicts:	python3-dnf < %{dnf_conflict}
@@ -163,9 +150,6 @@ rm -rf %{buildroot}%{_libdir}/python2.7
 %{_libdir}/%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 %{_includedir}/%{name}/
-
-%files -n hawkey-man
-%{_mandir}/man3/hawkey.3*
 
 %files -n python-hawkey
 %{python3_sitearch}/hawkey/
