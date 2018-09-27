@@ -8,7 +8,9 @@
 # Warning: This package is synced from Mageia and Fedora!
 
 %define libsolv_version 0.6.30-1
-%define dnf_conflict 2.0.0
+%define libmodulemd_version 1.6.1
+%define dnf_conflict 3.6.0
+%define swig_version 3.0.12
 
 # Keep valgrind tests switched off for now
 %bcond_with valgrind
@@ -21,7 +23,7 @@
 Summary:	Library providing simplified C and Python API to libsolv
 Name:		libdnf
 Version:	0.20.0
-Release:	1
+Release:	2
 Group:		System/Libraries
 License:	LGPLv2+
 URL:		https://github.com/rpm-software-management/%{name}
@@ -43,13 +45,11 @@ BuildRequires:	pkgconfig(check)
 BuildRequires:	valgrind
 %endif
 BuildRequires:	pkgconfig(gio-unix-2.0) >= 2.46.0
-BuildRequires:	pkgconfig(gtk-doc)
-BuildRequires:	pkgconfig(gobject-introspection-1.0)
-BuildRequires:	pkgconfig(modulemd)
+BuildRequires:	pkgconfig(modulemd) >= %{libmodulemd_version}
 BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	pkgconfig(json-c)
 BuildRequires:	pkgconfig(cppunit)
-BuildRequires:	swig
+BuildRequires:	swig >= %{swig_version}
 BuildRequires:	pkgconfig(rpm) >= 4.11.0
 BuildRequires:	pkgconfig(popt)
 BuildRequires:	pkgconfig(smartcols)
@@ -80,6 +80,7 @@ Group:		Development/C
 Provides:	%{name}-devel%{?_isa} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 Requires:	%{libname}%{?_isa} = %{version}-%{release}
+Requires:	pkgconfig(libsolv)
 
 %description -n %{devname}
 Development files for %{name}.
@@ -126,7 +127,7 @@ Python 3 bindings for libdnf.
 %autosetup -p1
 
 %build
-%cmake -DPYTHON_DESIRED:str=3 %{!?with_valgrind:-DDISABLE_VALGRIND=1} -G Ninja
+%cmake -DPYTHON_DESIRED:str=3 -DWITH_GIR=0 -DWITH_MAN=0 -Dgtkdoc=0 %{!?with_valgrind:-DDISABLE_VALGRIND=1} -G Ninja
 %ninja_build
 
 %check
@@ -161,7 +162,6 @@ rm -rf %{buildroot}%{_libdir}/python2.7
 %{_libdir}/%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 %{_includedir}/%{name}/
-%doc %{_datadir}/gtk-doc/html/%{name}/
 
 %files -n hawkey-man
 %{_mandir}/man3/hawkey.3*
