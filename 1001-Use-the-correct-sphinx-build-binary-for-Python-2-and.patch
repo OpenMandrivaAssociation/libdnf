@@ -1,6 +1,6 @@
-diff -up libdnf-0.16.1/docs/hawkey/CMakeLists.txt.2~ libdnf-0.16.1/docs/hawkey/CMakeLists.txt
---- libdnf-0.16.1/docs/hawkey/CMakeLists.txt.2~	2018-07-29 01:19:27.772333839 +0200
-+++ libdnf-0.16.1/docs/hawkey/CMakeLists.txt	2018-07-29 01:20:23.718418029 +0200
+diff -up libdnf-0.22.0/docs/hawkey/CMakeLists.txt.1~ libdnf-0.22.0/docs/hawkey/CMakeLists.txt
+--- libdnf-0.22.0/docs/hawkey/CMakeLists.txt.1~	2018-10-16 23:19:00.044821237 +0200
++++ libdnf-0.22.0/docs/hawkey/CMakeLists.txt	2018-10-16 23:19:32.818985080 +0200
 @@ -2,9 +2,9 @@
  # tell sphinx-build to do them both in one go:
  
@@ -12,4 +12,4 @@ diff -up libdnf-0.16.1/docs/hawkey/CMakeLists.txt.2~ libdnf-0.16.1/docs/hawkey/C
 +    SET(SPHINX_BUILD_NAME "sphinx-build")
  endif()
  
- ADD_CUSTOM_TARGET (doc-html
+ IF(WITH_HTML)
