@@ -26,7 +26,7 @@
 
 Summary:	Library providing simplified C and Python API to libsolv
 Name:		libdnf
-Version:	0.22.3
+Version:	0.24.1
 Release:	1
 Group:		System/Libraries
 License:	LGPLv2+
@@ -156,6 +156,7 @@ rm -rf %{buildroot}%{_libdir}/python2.7
 %{_libdir}/%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 %{_includedir}/%{name}/
+%doc %{_libdir}/libdnf/plugins/README
 
 %files -n python-hawkey
 %{python3_sitearch}/hawkey/
