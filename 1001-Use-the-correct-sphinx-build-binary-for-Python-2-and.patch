@@ -1,15 +1,15 @@
-diff -up libdnf-0.22.0/docs/hawkey/CMakeLists.txt.1~ libdnf-0.22.0/docs/hawkey/CMakeLists.txt
---- libdnf-0.22.0/docs/hawkey/CMakeLists.txt.1~	2018-10-16 23:19:00.044821237 +0200
-+++ libdnf-0.22.0/docs/hawkey/CMakeLists.txt	2018-10-16 23:19:32.818985080 +0200
+diff -up libdnf-0.28.0/docs/hawkey/CMakeLists.txt.1~ libdnf-0.28.0/docs/hawkey/CMakeLists.txt
+--- libdnf-0.28.0/docs/hawkey/CMakeLists.txt.1~	2019-03-12 12:32:44.201987624 +0100
++++ libdnf-0.28.0/docs/hawkey/CMakeLists.txt	2019-03-12 12:33:08.628337680 +0100
 @@ -2,9 +2,9 @@
  # tell sphinx-build to do them both in one go:
  
- if (${PYTHON_VERSION_MAJOR} STREQUAL "2")
--    SET(SPHINX_BUILD_NAME "sphinx-build")
-+    SET(SPHINX_BUILD_NAME "sphinx-build-2")
+ if(${PYTHON_VERSION_MAJOR} STREQUAL "2")
+-    set(SPHINX_BUILD_NAME "sphinx-build")
++    set(SPHINX_BUILD_NAME "sphinx-build-2")
  else()
--    SET(SPHINX_BUILD_NAME "sphinx-build-3")
-+    SET(SPHINX_BUILD_NAME "sphinx-build")
+-    set(SPHINX_BUILD_NAME "sphinx-build-3")
++    set(SPHINX_BUILD_NAME "sphinx-build")
  endif()
  
- IF(WITH_HTML)
+ if(WITH_HTML)

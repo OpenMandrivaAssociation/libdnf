@@ -26,7 +26,7 @@
 
 Summary:	Library providing simplified C and Python API to libsolv
 Name:		libdnf
-Version:	0.26.0
+Version:	0.28.0
 Release:	1
 Group:		System/Libraries
 License:	LGPLv2+
@@ -37,8 +37,6 @@ Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # OpenMandriva specific changes
 Patch1001:	1001-Use-the-correct-sphinx-build-binary-for-Python-2-and.patch
 Patch1002:	libdnf-0.22.0-libdl-linkage.patch
-# https://github.com/rpm-software-management/libdnf/pull/442
-Patch1003:	libdnf-armdetection.patch
 # Add znver1 architecture support
 Patch1004:	libdnf-0.15.1-znver1.patch
 

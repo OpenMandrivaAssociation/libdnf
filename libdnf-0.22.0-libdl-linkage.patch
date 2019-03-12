@@ -1,13 +1,11 @@
-diff -up libdnf-0.22.0/libdnf/CMakeLists.txt.omv~ libdnf-0.22.0/libdnf/CMakeLists.txt
---- libdnf-0.22.0/libdnf/CMakeLists.txt.omv~	2018-10-16 23:20:59.007416624 +0200
-+++ libdnf-0.22.0/libdnf/CMakeLists.txt	2018-10-16 23:21:12.314483336 +0200
-@@ -69,7 +69,8 @@ TARGET_LINK_LIBRARIES(libdnf
-                       ${JSONC_LIBRARIES}
-                       ${LIBMODULEMD_LIBRARIES}
-                       ${SMARTCOLS_LIBRARIES}
--                      ${GPGME_VANILLA_LIBRARIES})
-+                      ${GPGME_VANILLA_LIBRARIES}
-+		      dl)
+diff -up libdnf-0.28.0/libdnf/CMakeLists.txt.2~ libdnf-0.28.0/libdnf/CMakeLists.txt
+--- libdnf-0.28.0/libdnf/CMakeLists.txt.2~	2019-03-12 12:34:15.705189946 +0100
++++ libdnf-0.28.0/libdnf/CMakeLists.txt	2019-03-12 12:34:35.166293161 +0100
+@@ -73,6 +73,7 @@ target_link_libraries(libdnf
+     ${LIBMODULEMD_LIBRARIES}
+     ${SMARTCOLS_LIBRARIES}
+     ${GPGME_VANILLA_LIBRARIES}
++    dl
+ )
  
- if (ENABLE_RHSM_SUPPORT)
-     target_link_libraries (libdnf ${RHSM_LIBRARIES})
+ if(ENABLE_RHSM_SUPPORT)
