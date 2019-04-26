@@ -1,19 +1,12 @@
-# (ngompa) disable rpmlint to avoid terrible cyclic dependency problem in rpm5->rpm4 + python2->python3 transition
-# remove after rpm5->rpm4 transition is complete
-%undefine _build_pkgcheck_set
-%undefine _build_pkgcheck_srpm
-%undefine _nonzero_exit_pkgcheck_terminate_build
-###
-
 # FIXME We should really run those tests -- but as of 0.22.0, they cause
 # a SIGTRAP even though the library works
 %bcond_with tests
 
 # Warning: This package is synced from Mageia and Fedora!
 
-%define libsolv_version 0.7.0-1
+%define libsolv_version 0.7.4-1
 %define libmodulemd_version 1.8.2
-%define dnf_conflict 3.6.0
+%define dnf_conflict 4.2.5
 %define swig_version 3.0.12
 
 # Keep valgrind tests switched off for now
@@ -27,7 +20,7 @@
 Summary:	Library providing simplified C and Python API to libsolv
 Name:		libdnf
 Version:	0.31.0
-Release:	1
+Release:	2
 Group:		System/Libraries
 License:	LGPLv2+
 URL:		https://github.com/rpm-software-management/%{name}
