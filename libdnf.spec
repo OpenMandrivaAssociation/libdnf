@@ -19,7 +19,7 @@
 
 Summary:	Library providing simplified C and Python API to libsolv
 Name:		libdnf
-Version:	0.33.0
+Version:	0.35.1
 Release:	1
 Group:		System/Libraries
 License:	LGPLv2+
@@ -35,7 +35,7 @@ Patch1004:	libdnf-0.15.1-znver1.patch
 
 BuildRequires:	cmake >= 3.12.1
 BuildRequires:	ninja
-BuildRequires:	libsolv-devel >= %{libsolv_version}
+BuildRequires:	pkgconfig(libsolv) >= %{libsolv_version}
 BuildRequires:	pkgconfig(librepo)
 BuildRequires:	pkgconfig(check)
 %if %{with valgrind}
@@ -50,7 +50,7 @@ BuildRequires:	swig >= %{swig_version}
 BuildRequires:	pkgconfig(rpm) >= 4.11.0
 BuildRequires:	pkgconfig(popt)
 BuildRequires:	pkgconfig(smartcols)
-BuildRequires:	gpgme-devel
+BuildRequires:	pkgconfig(gpgme)
 BuildConflicts:	pkgconfig(rpm) >= 5
 
 # Bad Things(tm) happen if libdnf with armv8 detection is used
