@@ -6,7 +6,7 @@
 
 %define libsolv_version 0.7.4-1
 %define libmodulemd_version 1.8.2
-%define dnf_conflict 4.2.5
+%define dnf_conflict 4.2.9
 %define swig_version 3.0.12
 
 # Keep valgrind tests switched off for now
@@ -19,7 +19,7 @@
 
 Summary:	Library providing simplified C and Python API to libsolv
 Name:		libdnf
-Version:	0.35.1
+Version:	0.35.3
 Release:	1
 Group:		System/Libraries
 License:	LGPLv2+
@@ -36,7 +36,7 @@ Patch1004:	libdnf-0.15.1-znver1.patch
 BuildRequires:	cmake >= 3.12.1
 BuildRequires:	ninja
 BuildRequires:	pkgconfig(libsolv) >= %{libsolv_version}
-BuildRequires:	pkgconfig(librepo)
+BuildRequires:	pkgconfig(librepo) >= 1.10.0
 BuildRequires:	pkgconfig(check)
 %if %{with valgrind}
 BuildRequires:	valgrind
@@ -51,6 +51,7 @@ BuildRequires:	pkgconfig(rpm) >= 4.11.0
 BuildRequires:	pkgconfig(popt)
 BuildRequires:	pkgconfig(smartcols)
 BuildRequires:	pkgconfig(gpgme)
+BuildRequires:	pkgconfig(zck)
 BuildConflicts:	pkgconfig(rpm) >= 5
 
 # Bad Things(tm) happen if libdnf with armv8 detection is used
@@ -111,7 +112,7 @@ Python 3 bindings for libdnf.
 %autosetup -p1
 
 %build
-%cmake -DPYTHON_DESIRED:str=3 -DWITH_MAN=0 -DWITH_GTKDOC=0 %{!?with_valgrind:-DDISABLE_VALGRIND=1} -G Ninja
+%cmake -DPYTHON_DESIRED:str=3 -DWITH_MAN=0 -DWITH_GTKDOC=0 %{!?with_valgrind:-DDISABLE_VALGRIND=1} -DWITH_ZCHUNK=ON -G Ninja
 %ninja_build
 
 %if %{with tests}
