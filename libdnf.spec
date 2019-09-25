@@ -19,7 +19,7 @@
 
 Summary:	Library providing simplified C and Python API to libsolv
 Name:		libdnf
-Version:	0.35.3
+Version:	0.35.5
 Release:	1
 Group:		System/Libraries
 License:	LGPLv2+
