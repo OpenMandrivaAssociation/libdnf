@@ -28,7 +28,6 @@ Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # From upstream
 
 # OpenMandriva specific changes
-Patch1001:	1001-Use-the-correct-sphinx-build-binary-for-Python-2-and.patch
 Patch1002:	libdnf-0.22.0-libdl-linkage.patch
 # Add znver1 architecture support
 Patch1004:	libdnf-0.15.1-znver1.patch
