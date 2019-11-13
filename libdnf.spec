@@ -46,6 +46,7 @@ BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	pkgconfig(json-c)
 BuildRequires:	pkgconfig(cppunit)
 BuildRequires:	swig >= %{swig_version}
+BuildRequires:	python3dist(sphinx)
 BuildRequires:	pkgconfig(rpm) >= 4.11.0
 BuildRequires:	pkgconfig(popt)
 BuildRequires:	pkgconfig(smartcols)
