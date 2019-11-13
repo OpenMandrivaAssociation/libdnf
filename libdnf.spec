@@ -6,7 +6,7 @@
 
 %define libsolv_version 0.7.7
 %define libmodulemd_version 1.6.1
-%define dnf_conflict 4.2.13
+%define dnf_conflict 4.2.6
 %define swig_version 3.0.12
 
 # Keep valgrind tests switched off for now
