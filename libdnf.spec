@@ -4,9 +4,9 @@
 
 # Warning: This package is synced from Mageia and Fedora!
 
-%define libsolv_version 0.7.4-1
-%define libmodulemd_version 2.8.2
-%define dnf_conflict 4.2.9
+%define libsolv_version 0.7.7
+%define libmodulemd_version 1.6.1
+%define dnf_conflict 4.2.13
 %define swig_version 3.0.12
 
 # Keep valgrind tests switched off for now
@@ -35,13 +35,13 @@ Patch1004:	libdnf-0.15.1-znver1.patch
 BuildRequires:	cmake >= 3.12.1
 BuildRequires:	ninja
 BuildRequires:	pkgconfig(libsolv) >= %{libsolv_version}
-BuildRequires:	pkgconfig(librepo) >= 1.10.0
+BuildRequires:	pkgconfig(librepo) >= 1.11.0
 BuildRequires:	pkgconfig(check)
 %if %{with valgrind}
 BuildRequires:	valgrind
 %endif
 BuildRequires:	pkgconfig(gio-unix-2.0) >= 2.46.0
-BuildRequires:	pkgconfig(modulemd-2.0) >= %{libmodulemd_version}
+BuildRequires:	pkgconfig(modulemd) >= %{libmodulemd_version}
 BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	pkgconfig(json-c)
 BuildRequires:	pkgconfig(cppunit)
