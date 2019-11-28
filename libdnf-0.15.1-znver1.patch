@@ -1,15 +1,37 @@
-diff -up libdnf-0.15.1/libdnf/hy-util.cpp.omv~ libdnf-0.15.1/libdnf/hy-util.cpp
---- libdnf-0.15.1/libdnf/hy-util.cpp.omv~	2018-06-29 01:40:44.977191234 +0200
-+++ libdnf-0.15.1/libdnf/hy-util.cpp	2018-06-29 01:40:08.796189885 +0200
-@@ -51,6 +51,34 @@
- #define HWCAP2_AES	(1<<0)
- #endif
+diff -Naur libdnf-0.39.1/libdnf/dnf-context.cpp libdnf-0.39.1.tpg/libdnf/dnf-context.cpp
+--- libdnf-0.39.1/libdnf/dnf-context.cpp	2019-11-25 09:00:10.000000000 +0000
++++ libdnf-0.39.1.tpg/libdnf/dnf-context.cpp	2019-11-28 10:05:37.498009698 +0000
+@@ -90,7 +90,7 @@
+     { "arm",        { "armv5tejl", "armv5tel", "armv5tl", "armv6l", "armv7l", "armv8l", NULL } },
+     { "armhfp",     { "armv7hl", "armv7hnl", "armv8hl", "armv8hnl", "armv8hcnl", NULL } },
+     { "i386",       { "i386", "athlon", "geode", "i386",
+-                      "i486", "i586", "i686", NULL } },
++                      "i486", "i586", "i686", "znver1_32", NULL } },
+     { "ia64",       { "ia64", NULL } },
+     { "mips",       { "mips", NULL } },
+     { "mipsel",     { "mipsel", NULL } },
+@@ -107,7 +107,7 @@
+     { "sh4",        { "sh4", "sh4a", NULL } },
+     { "sparc",      { "sparc", "sparc64", "sparc64v", "sparcv8",
+                       "sparcv9", "sparcv9v", NULL } },
+-    { "x86_64",     { "x86_64", "amd64", "ia32e", NULL } },
++    { "x86_64",     { "x86_64", "amd64", "ia32e", "znver1", NULL } },
+     { NULL,         { NULL } }
+ };
  
+diff -Naur libdnf-0.39.1/libdnf/hy-util.cpp libdnf-0.39.1.tpg/libdnf/hy-util.cpp
+--- libdnf-0.39.1/libdnf/hy-util.cpp	2019-11-25 09:00:10.000000000 +0000
++++ libdnf-0.39.1.tpg/libdnf/hy-util.cpp	2019-11-28 10:08:32.976010710 +0000
+@@ -43,6 +43,34 @@
+ #ifndef HWCAP_ARM_NEON
+ #define HWCAP_ARM_NEON	(1<<12)
+ #endif
 +#if defined(__x86_64__) || defined(__i386__)
++
 +static inline void cpuid(uint32_t op, uint32_t *eax, uint32_t *ebx, uint32_t *ecx, uint32_t *edx)
 +{
 +    asm volatile (
-+	"cpuid\n"
++       "cpuid\n"
 +    : "=a" (*eax), "=b" (*ebx), "=c" (*ecx), "=d" (*edx)
 +    : "a" (op));
 +}
@@ -32,11 +54,10 @@ diff -up libdnf-0.15.1/libdnf/hy-util.cpp.omv~ libdnf-0.15.1/libdnf/hy-util.cpp
 +    return family >= 0x17;
 +}
 +#endif
-+
+ 
  const char *
  hy_chksum_name(int chksum_type)
- {
-@@ -127,6 +155,14 @@ hy_detect_arch(char **arch)
+@@ -124,6 +152,14 @@
      else if (!strcmp(un.machine, "mips64"))
          strcpy(un.machine, "mips64el");
  #endif
@@ -44,31 +65,10 @@ diff -up libdnf-0.15.1/libdnf/hy-util.cpp.omv~ libdnf-0.15.1/libdnf/hy-util.cpp
 +    if (is_ryzen()) {
 +        if (!strcmp(un.machine, "x86_64"))
 +            strcpy(un.machine, "znver1");
-+	else
++       else
 +            strcpy(un.machine, "znver1_32");
 +    }
 +#endif
      *arch = g_strdup(un.machine);
      return 0;
  }
-diff -up libdnf-0.15.2/libdnf/dnf-context.cpp.omv~ libdnf-0.15.2/libdnf/dnf-context.cpp
---- libdnf-0.15.2/libdnf/dnf-context.cpp.omv~	2018-07-03 13:20:48.572368141 +0200
-+++ libdnf-0.15.2/libdnf/dnf-context.cpp	2018-07-03 13:21:25.184365484 +0200
-@@ -70,7 +70,7 @@ static const struct {
-     { "arm",        { "armv5tejl", "armv5tel", "armv5tl", "armv6l", "armv7l", "armv8l", NULL } },
-     { "armhfp",     { "armv7hl", "armv7hnl", "armv8hl", "armv8hnl", "armv8hcnl", NULL } },
-     { "i386",       { "i386", "athlon", "geode", "i386",
--                      "i486", "i586", "i686", NULL } },
-+                      "i486", "i586", "i686", "znver1_32", NULL } },
-     { "ia64",       { "ia64", NULL } },
-     { "mips",       { "mips", NULL } },
-     { "mipsel",     { "mipsel", NULL } },
-@@ -87,7 +87,7 @@ static const struct {
-     { "sh4",        { "sh4", "sh4a", NULL } },
-     { "sparc",      { "sparc", "sparc64", "sparc64v", "sparcv8",
-                       "sparcv9", "sparcv9v", NULL } },
--    { "x86_64",     { "x86_64", "amd64", "ia32e", NULL } },
-+    { "x86_64",     { "x86_64", "amd64", "ia32e", "znver1", NULL } },
-     { NULL,         { NULL } }
- };
- 

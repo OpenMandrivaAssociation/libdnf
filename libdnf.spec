@@ -31,7 +31,6 @@ Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch1002:	libdnf-0.22.0-libdl-linkage.patch
 # Add znver1 architecture support
 Patch1004:	libdnf-0.15.1-znver1.patch
-
 BuildRequires:	cmake >= 3.12.1
 BuildRequires:	ninja
 BuildRequires:	pkgconfig(libsolv) >= %{libsolv_version}
