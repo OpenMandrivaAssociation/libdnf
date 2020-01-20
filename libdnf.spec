@@ -2,7 +2,6 @@
 
 %define libsolv_version 0.7.7
 %define libmodulemd_version 1.6.1
-%define dnf_conflict 4.2.13
 %define swig_version 3.0.12
 
 # Keep valgrind tests switched off for now
@@ -88,10 +87,6 @@ BuildRequires:	python-nose
 Requires:	%{libname}%{?_isa} = %{version}-%{release}
 # hawkey module now uses libdnf module
 Requires:	python3-libdnf%{?_isa} = %{version}-%{release}
-# Fix problem with hawkey - dnf version incompatibility
-# Can be deleted for distros where only python3-dnf >= 2.0.0
-Conflicts:	python3-dnf < %{dnf_conflict}
-Conflicts:	python-dnf < %{dnf_conflict}
 # hawkey man pages are no longer built
 Obsoletes:	hawkey-man < 0.22.0
 
