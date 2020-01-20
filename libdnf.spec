@@ -1,7 +1,3 @@
-# FIXME We should really run those tests -- but as of 0.22.0, they cause
-# a SIGTRAP even though the library works
-%bcond_with tests
-
 # Warning: This package is synced from Mageia and Fedora!
 
 %define libsolv_version 0.7.7
@@ -19,8 +15,8 @@
 
 Summary:	Library providing simplified C and Python API to libsolv
 Name:		libdnf
-Version:	0.39.1
-Release:	3
+Version:	0.43.1
+Release:	1
 Group:		System/Libraries
 License:	LGPLv2+
 URL:		https://github.com/rpm-software-management/%{name}
@@ -32,7 +28,7 @@ Patch1002:	libdnf-0.22.0-libdl-linkage.patch
 # Add znver1 architecture support
 Patch1004:	libdnf-0.15.1-znver1.patch
 BuildRequires:	cmake >= 3.12.1
-BuildRequires:	ninja
+BuildRequires:	make
 BuildRequires:	pkgconfig(libsolv) >= %{libsolv_version}
 BuildRequires:	pkgconfig(librepo) >= 1.11.0
 BuildRequires:	pkgconfig(check)
@@ -57,8 +53,6 @@ BuildConflicts:	pkgconfig(rpm) >= 5
 # in conjunction with a build of dnf that doesn't know about
 # armv8
 Conflicts:	dnf < 2.7.5-2
-%rename	hawkey-man
-Obsoletes:	hawkey-devel < 0.6.4-3
 
 %description
 A library providing simplified C and Python API to libsolv.
@@ -80,6 +74,8 @@ Provides:	%{name}-devel%{?_isa} = %{version}-%{release}
 Provides:	%{name}-devel = %{version}-%{release}
 Requires:	%{libname}%{?_isa} = %{version}-%{release}
 Requires:	pkgconfig(libsolv)
+Requires:	pkgconfig(libsolvext)
+Obsoletes:	hawkey-devel < 0.6.4-3
 
 %description -n %{devname}
 Development files for %{name}.
@@ -90,10 +86,14 @@ Group:		Development/Python
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	python-nose
 Requires:	%{libname}%{?_isa} = %{version}-%{release}
+# hawkey module now uses libdnf module
+Requires:	python3-libdnf%{?_isa} = %{version}-%{release}
 # Fix problem with hawkey - dnf version incompatibility
 # Can be deleted for distros where only python3-dnf >= 2.0.0
 Conflicts:	python3-dnf < %{dnf_conflict}
 Conflicts:	python-dnf < %{dnf_conflict}
+# hawkey man pages are no longer built
+Obsoletes:	hawkey-man < 0.22.0
 
 %description -n python-hawkey
 Python 3 bindings for libdnf through the hawkey interface.
@@ -111,10 +111,9 @@ Python 3 bindings for libdnf.
 %autosetup -p1
 
 %build
-%cmake -DPYTHON_DESIRED:str=3 -DWITH_MAN=0 -DWITH_GTKDOC=0 %{!?with_valgrind:-DDISABLE_VALGRIND=1} -DWITH_ZCHUNK=ON -G Ninja
-%ninja_build
+%cmake -DPYTHON_DESIRED:FILEPATH=%{__python3} -DWITH_MAN=0 -DWITH_GTKDOC=0 %{!?with_valgrind:-DDISABLE_VALGRIND=1} -DWITH_ZCHUNK=ON
+%make_build
 
-%if %{with tests}
 %check
 # The test suite doesn't automatically know to look at the "built"
 # library, so we force it by creating an LD_LIBRARY_PATH
@@ -128,11 +127,10 @@ ERROR
     exit 1
 fi
 
-ARGS="-V" %ninja_build test -C build
-%endif
+make ARGS="-V" test -C build
 
 %install
-%ninja_install -C build
+%make_install -C build
 
 %find_lang %{name}
 
@@ -148,6 +146,7 @@ rm -rf %{buildroot}%{_libdir}/python2.7
 %{_libdir}/%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 %{_includedir}/%{name}/
+%dir %{_libdir}/libdnf/plugins
 %doc %{_libdir}/libdnf/plugins/README
 
 %files -n python-hawkey
