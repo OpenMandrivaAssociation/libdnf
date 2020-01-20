@@ -86,7 +86,7 @@ BuildRequires:	pkgconfig(python3)
 BuildRequires:	python-nose
 Requires:	%{libname}%{?_isa} = %{version}-%{release}
 # hawkey module now uses libdnf module
-Requires:	python3-libdnf%{?_isa} = %{version}-%{release}
+Requires:	python-libdnf%{?_isa} = %{version}-%{release}
 # hawkey man pages are no longer built
 Obsoletes:	hawkey-man < 0.22.0
 
