@@ -99,6 +99,7 @@ Summary:	Python 3 bindings for libdnf
 Group:		Development/Python
 BuildRequires:	pkgconfig(python3)
 Requires:	%{libname}%{?_isa} = %{version}-%{release}
+Provides:	python3-libdnf = %{version}-%{release}
 
 %description -n python-libdnf
 Python 3 bindings for libdnf.
