@@ -1,7 +1,7 @@
 # Warning: This package is synced from Mageia and Fedora!
 
 %define libsolv_version 0.7.7
-%define libmodulemd_version 1.6.1
+%define libmodulemd_version 2.8.3
 %define swig_version 3.0.12
 
 # Keep valgrind tests switched off for now
@@ -14,7 +14,7 @@
 
 Summary:	Library providing simplified C and Python API to libsolv
 Name:		libdnf
-Version:	0.43.1
+Version:	0.45.0
 Release:	1
 Group:		System/Libraries
 License:	LGPLv2+
@@ -35,7 +35,7 @@ BuildRequires:	pkgconfig(check)
 BuildRequires:	valgrind
 %endif
 BuildRequires:	pkgconfig(gio-unix-2.0) >= 2.46.0
-BuildRequires:	pkgconfig(modulemd) >= %{libmodulemd_version}
+BuildRequires:	pkgconfig(modulemd-2.0) >= %{libmodulemd_version}
 BuildRequires:	pkgconfig(sqlite3)
 BuildRequires:	pkgconfig(json-c)
 BuildRequires:	pkgconfig(cppunit)
