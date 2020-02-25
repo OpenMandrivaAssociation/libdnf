@@ -84,6 +84,7 @@ Summary:	Python 3 bindings for the hawkey interface
 Group:		Development/Python
 BuildRequires:	pkgconfig(python3)
 BuildRequires:	python-nose
+Provides:	python3-hawkey = %{version}-%{release}
 Requires:	%{libname}%{?_isa} = %{version}-%{release}
 # hawkey module now uses libdnf module
 Requires:	python-libdnf%{?_isa} = %{version}-%{release}
@@ -98,6 +99,7 @@ Summary:	Python 3 bindings for libdnf
 Group:		Development/Python
 BuildRequires:	pkgconfig(python3)
 Requires:	%{libname}%{?_isa} = %{version}-%{release}
+Provides:	python3-libdnf = %{version}-%{release}
 
 %description -n python-libdnf
 Python 3 bindings for libdnf.
