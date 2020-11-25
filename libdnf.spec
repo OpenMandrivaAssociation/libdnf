@@ -15,7 +15,7 @@
 Summary:	Library providing simplified C and Python API to libsolv
 Name:		libdnf
 Version:	0.55.0
-Release:	1
+Release:	2
 Group:		System/Libraries
 License:	LGPLv2+
 URL:		https://github.com/rpm-software-management/%{name}
@@ -27,7 +27,6 @@ Patch1002:	libdnf-0.22.0-libdl-linkage.patch
 # Add znver1 architecture support
 Patch1004:	libdnf-0.15.1-znver1.patch
 BuildRequires:	cmake >= 3.12.1
-BuildRequires:	make
 BuildRequires:	pkgconfig(libsolv) >= %{libsolv_version}
 BuildRequires:	pkgconfig(librepo) >= 1.11.0
 BuildRequires:	pkgconfig(check)
@@ -136,6 +135,9 @@ rm -rf %{buildroot}%{_libdir}/python2.7
 
 %files -n %{libname}
 %{_libdir}/%{name}.so.%{major}
+%dir %{_libdir}/libdnf
+%dir %{_libdir}/libdnf/plugins
+%doc %{_libdir}/libdnf/plugins/README
 
 %files -n %{devname} -f %{name}.lang
 %license COPYING
@@ -143,8 +145,6 @@ rm -rf %{buildroot}%{_libdir}/python2.7
 %{_libdir}/%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 %{_includedir}/%{name}/
-%dir %{_libdir}/libdnf/plugins
-%doc %{_libdir}/libdnf/plugins/README
 
 %files -n python-hawkey
 %{python3_sitearch}/hawkey/
