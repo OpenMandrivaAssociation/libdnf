@@ -1,16 +1,16 @@
-diff -Naur libdnf-0.39.1/libdnf/dnf-context.cpp libdnf-0.39.1.tpg/libdnf/dnf-context.cpp
---- libdnf-0.39.1/libdnf/dnf-context.cpp	2019-11-25 09:00:10.000000000 +0000
-+++ libdnf-0.39.1.tpg/libdnf/dnf-context.cpp	2019-11-28 10:05:37.498009698 +0000
-@@ -90,7 +90,7 @@
+diff -up libdnf-0.58.0/libdnf/dnf-context.cpp.2~ libdnf-0.58.0/libdnf/dnf-context.cpp
+--- libdnf-0.58.0/libdnf/dnf-context.cpp.2~	2021-01-28 17:36:58.000000000 +0100
++++ libdnf-0.58.0/libdnf/dnf-context.cpp	2021-02-26 00:59:57.929437804 +0100
+@@ -97,7 +97,7 @@ static const struct {
      { "arm",        { "armv5tejl", "armv5tel", "armv5tl", "armv6l", "armv7l", "armv8l", NULL } },
-     { "armhfp",     { "armv7hl", "armv7hnl", "armv8hl", "armv8hnl", "armv8hcnl", NULL } },
+     { "armhfp",     { "armv6hl", "armv7hl", "armv7hnl", "armv8hl", "armv8hnl", "armv8hcnl", NULL } },
      { "i386",       { "i386", "athlon", "geode", "i386",
 -                      "i486", "i586", "i686", NULL } },
 +                      "i486", "i586", "i686", "znver1_32", NULL } },
      { "ia64",       { "ia64", NULL } },
      { "mips",       { "mips", NULL } },
      { "mipsel",     { "mipsel", NULL } },
-@@ -107,7 +107,7 @@
+@@ -117,7 +117,7 @@ static const struct {
      { "sh4",        { "sh4", "sh4a", NULL } },
      { "sparc",      { "sparc", "sparc64", "sparc64v", "sparcv8",
                        "sparcv9", "sparcv9v", NULL } },
@@ -19,9 +19,9 @@ diff -Naur libdnf-0.39.1/libdnf/dnf-context.cpp libdnf-0.39.1.tpg/libdnf/dnf-con
      { NULL,         { NULL } }
  };
  
-diff -Naur libdnf-0.39.1/libdnf/hy-util.cpp libdnf-0.39.1.tpg/libdnf/hy-util.cpp
---- libdnf-0.39.1/libdnf/hy-util.cpp	2019-11-25 09:00:10.000000000 +0000
-+++ libdnf-0.39.1.tpg/libdnf/hy-util.cpp	2019-11-28 10:08:32.976010710 +0000
+diff -up libdnf-0.58.0/libdnf/hy-util.cpp.2~ libdnf-0.58.0/libdnf/hy-util.cpp
+--- libdnf-0.58.0/libdnf/hy-util.cpp.2~	2021-01-28 17:36:58.000000000 +0100
++++ libdnf-0.58.0/libdnf/hy-util.cpp	2021-02-26 00:55:44.074223007 +0100
 @@ -43,6 +43,34 @@
  #ifndef HWCAP_ARM_NEON
  #define HWCAP_ARM_NEON	(1<<12)
@@ -57,7 +57,7 @@ diff -Naur libdnf-0.39.1/libdnf/hy-util.cpp libdnf-0.39.1.tpg/libdnf/hy-util.cpp
  
  const char *
  hy_chksum_name(int chksum_type)
-@@ -124,6 +152,14 @@
+@@ -124,6 +152,14 @@ hy_detect_arch(char **arch)
      else if (!strcmp(un.machine, "mips64"))
          strcpy(un.machine, "mips64el");
  #endif
