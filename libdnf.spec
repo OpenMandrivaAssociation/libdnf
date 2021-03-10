@@ -14,7 +14,7 @@
 
 Summary:	Library providing simplified C and Python API to libsolv
 Name:		libdnf
-Version:	0.58.0
+Version:	0.60.0
 Release:	1
 Group:		System/Libraries
 License:	LGPLv2+
@@ -26,6 +26,7 @@ Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch1002:	libdnf-0.22.0-libdl-linkage.patch
 # Add znver1 architecture support
 Patch1004:	libdnf-0.15.1-znver1.patch
+
 BuildRequires:	cmake >= 3.12.1
 BuildRequires:	pkgconfig(libsolv) >= %{libsolv_version}
 BuildRequires:	pkgconfig(librepo) >= 1.11.0
