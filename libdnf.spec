@@ -1,7 +1,7 @@
 # Warning: This package is synced from Mageia and Fedora!
 
-%define libsolv_version 0.7.7
-%define libmodulemd_version 2.8.3
+%define libsolv_version 0.7.17
+%define libmodulemd_version 2.11.2
 %define swig_version 3.0.12
 
 # Keep valgrind tests switched off for now
