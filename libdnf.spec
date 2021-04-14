@@ -14,7 +14,7 @@
 
 Summary:	Library providing simplified C and Python API to libsolv
 Name:		libdnf
-Version:	0.60.0
+Version:	0.62.0
 Release:	1
 Group:		System/Libraries
 License:	LGPLv2+
@@ -29,7 +29,7 @@ Patch1004:	libdnf-0.15.1-znver1.patch
 
 BuildRequires:	cmake >= 3.12.1
 BuildRequires:	pkgconfig(libsolv) >= %{libsolv_version}
-BuildRequires:	pkgconfig(librepo) >= 1.11.0
+BuildRequires:	pkgconfig(librepo) >= 1.13.1
 BuildRequires:	pkgconfig(check)
 %if %{with valgrind}
 BuildRequires:	valgrind
@@ -45,13 +45,13 @@ BuildRequires:	pkgconfig(rpm) >= 4.11.0
 BuildRequires:	pkgconfig(popt)
 BuildRequires:	pkgconfig(smartcols)
 BuildRequires:	pkgconfig(gpgme)
-BuildRequires:	pkgconfig(zck)
+BuildRequires:	pkgconfig(zck) >= 0.9.11
 BuildConflicts:	pkgconfig(rpm) >= 5
 
 # Bad Things(tm) happen if libdnf with armv8 detection is used
 # in conjunction with a build of dnf that doesn't know about
 # armv8
-Conflicts:	dnf < 2.7.5-2
+Conflicts:	dnf < 4.3.0
 
 %description
 A library providing simplified C and Python API to libsolv.
@@ -83,7 +83,6 @@ Development files for %{name}.
 Summary:	Python 3 bindings for the hawkey interface
 Group:		Development/Python
 BuildRequires:	pkgconfig(python3)
-BuildRequires:	python-nose
 Provides:	python3-hawkey = %{version}-%{release}
 Requires:	%{libname}%{?_isa} = %{version}-%{release}
 # hawkey module now uses libdnf module
