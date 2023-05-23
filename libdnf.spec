@@ -1,6 +1,6 @@
 # Warning: This package is synced from Mageia and Fedora!
 
-%define libsolv_version 0.7.20
+%define libsolv_version 0.7.21
 %define libmodulemd_version 2.13.0
 %define swig_version 3.0.12
 
@@ -14,8 +14,8 @@
 
 Summary:	Library providing simplified C and Python API to libsolv
 Name:		libdnf
-Version:	0.70.0
-Release:	2
+Version:	0.70.1
+Release:	1
 Group:		System/Libraries
 License:	LGPLv2+
 URL:		https://github.com/rpm-software-management/%{name}
