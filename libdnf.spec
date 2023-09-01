@@ -14,7 +14,7 @@
 
 Summary:	Library providing simplified C and Python API to libsolv
 Name:		libdnf
-Version:	0.70.2
+Version:	0.71.0
 Release:	1
 Group:		System/Libraries
 License:	LGPLv2+
@@ -23,13 +23,12 @@ Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # From upstream
 
 # OpenMandriva specific changes
-Patch1002:	libdnf-0.22.0-libdl-linkage.patch
 # Add znver1 architecture support
 Patch1004:	libdnf-0.15.1-znver1.patch
 
 BuildRequires:	cmake >= 3.12.1
 BuildRequires:	pkgconfig(libsolv) >= %{libsolv_version}
-BuildRequires:	pkgconfig(librepo) >= 1.13.1
+BuildRequires:	pkgconfig(librepo) >= 1.16.0
 BuildRequires:	pkgconfig(check)
 %if %{with valgrind}
 BuildRequires:	valgrind
@@ -44,7 +43,6 @@ BuildRequires:	python3dist(sphinx)
 BuildRequires:	pkgconfig(rpm) >= 4.11.0
 BuildRequires:	pkgconfig(popt)
 BuildRequires:	pkgconfig(smartcols)
-BuildRequires:	pkgconfig(gpgme)
 BuildRequires:	pkgconfig(zck) >= 0.9.11
 BuildConflicts:	pkgconfig(rpm) >= 5
 
