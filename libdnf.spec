@@ -111,7 +111,10 @@ export CMAKE_MODULE_PATH=%{_prefix}/%{_target_platform}/share/cmake/Modules
 	-DWITH_GTKDOC=0 \
 	%{!?with_valgrind:-DDISABLE_VALGRIND=1} \
 	-DWITH_ZCHUNK=ON \
+%if %{cross_compiling}
+	-DWITH_TESTS:BOOL=OFF \
 	-DPKG_CONFIG_EXECUTABLE=%{_bindir}/pkg-config \
+%endif
 	-G Ninja
 
 %build
