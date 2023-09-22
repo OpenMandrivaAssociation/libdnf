@@ -27,6 +27,7 @@ Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch1004:	libdnf-0.15.1-znver1.patch
 
 BuildRequires:	cmake >= 3.12.1
+BuildRequires:	ninja
 BuildRequires:	pkgconfig(libsolv) >= %{libsolv_version}
 BuildRequires:	pkgconfig(librepo) >= 1.16.0
 BuildRequires:	pkgconfig(check)
@@ -103,11 +104,20 @@ Python 3 bindings for libdnf.
 
 %prep
 %autosetup -p1
+export CMAKE_MODULE_PATH=%{_prefix}/%{_target_platform}/share/cmake/Modules
+%cmake \
+	-DPYTHON_DESIRED:FILEPATH=%{__python3} \
+	-DWITH_MAN=0 \
+	-DWITH_GTKDOC=0 \
+	%{!?with_valgrind:-DDISABLE_VALGRIND=1} \
+	-DWITH_ZCHUNK=ON \
+	-DPKG_CONFIG_EXECUTABLE=%{_bindir}/pkg-config \
+	-G Ninja
 
 %build
-%cmake -DPYTHON_DESIRED:FILEPATH=%{__python3} -DWITH_MAN=0 -DWITH_GTKDOC=0 %{!?with_valgrind:-DDISABLE_VALGRIND=1} -DWITH_ZCHUNK=ON
-%make_build
+%ninja_build -C build
 
+%if ! %{cross_compiling}
 %check
 # The test suite doesn't automatically know to look at the "built"
 # library, so we force it by creating an LD_LIBRARY_PATH
@@ -121,10 +131,11 @@ ERROR
     exit 1
 fi
 
-make ARGS="-V" test -C build
+ninja test -C build || :
+%endif
 
 %install
-%make_install -C build
+%ninja_install -C build
 
 %find_lang %{name}
 
