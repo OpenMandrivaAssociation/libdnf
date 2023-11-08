@@ -15,7 +15,7 @@
 Summary:	Library providing simplified C and Python API to libsolv
 Name:		libdnf
 Version:	0.72.0
-Release:	2
+Release:	3
 Group:		System/Libraries
 License:	LGPLv2+
 URL:		https://github.com/rpm-software-management/%{name}
@@ -58,7 +58,6 @@ A library providing simplified C and Python API to libsolv.
 %package -n %{libname}
 Summary:	Package library providing simplified interface to libsolv
 Group:		System/Libraries
-Requires:	%{mklibname solv 1}%{?_isa} >= %{libsolv_version}
 Obsoletes:	%{oldgirname} < %{EVRD}
 
 %description -n %{libname}
