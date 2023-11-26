@@ -8,19 +8,21 @@
 %bcond_with valgrind
 
 %define major 2
-%define libname %mklibname dnf %{major}
+%define oldlibname %mklibname dnf 2
+%define libname %mklibname dnf
 %define oldgirname %mklibname dnf-gir 1.0
 %define devname %mklibname dnf -d
 
 Summary:	Library providing simplified C and Python API to libsolv
 Name:		libdnf
 Version:	0.72.0
-Release:	3
+Release:	4
 Group:		System/Libraries
 License:	LGPLv2+
-URL:		https://github.com/rpm-software-management/%{name}
-Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
+URL:		https://github.com/rpm-software-management/libdnf
+Source0:	https://github.com/rpm-software-management/libdnf/archive/%{version}/%{name}-%{version}.tar.gz
 # From upstream
+# [currently nothing required]
 
 # OpenMandriva specific changes
 # Add znver1 architecture support
@@ -59,6 +61,7 @@ A library providing simplified C and Python API to libsolv.
 Summary:	Package library providing simplified interface to libsolv
 Group:		System/Libraries
 Obsoletes:	%{oldgirname} < %{EVRD}
+%rename %{oldlibname}
 
 %description -n %{libname}
 This library provides a simple interface to libsolv and is currently
