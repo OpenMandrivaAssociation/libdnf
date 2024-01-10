@@ -106,6 +106,16 @@ Python 3 bindings for libdnf.
 
 %prep
 %autosetup -p1
+%if %{cross_compiling}
+# FIXME this should be fixed properly, but for now, this
+# is the fastest way to limit the damage of an added
+# -I/usr/include
+sed -i -e 's/include_directories(\${GLIB/#&/g' CMakeLists.txt
+sed -i -e 's/include_directories(\${JSONC/#&/g' CMakeLists.txt
+sed -i -e 's/include_directories(\${REPO/#&/g' CMakeLists.txt
+%global optflags %{optflags} -I%{_prefix}/%{_target_platform}/include/glib-2.0 -I%{_prefix}/%{_target_platform}/include/gio-unix-2.0 -I%{_prefix}/%{_target_platform}/%{_lib}/glib-2.0/include -I%{_prefix}/%{_target_platform}/include/libxml2 -I%{_prefix}/%{_target_platform}/include/json-c
+%endif
+
 export CMAKE_MODULE_PATH=%{_prefix}/%{_target_platform}/share/cmake/Modules
 %cmake \
 	-DPYTHON_DESIRED:FILEPATH=%{__python3} \
