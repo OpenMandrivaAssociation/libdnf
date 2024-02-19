@@ -48,6 +48,7 @@ BuildRequires:	pkgconfig(popt)
 BuildRequires:	pkgconfig(smartcols)
 BuildRequires:	pkgconfig(zck) >= 0.9.11
 BuildConflicts:	pkgconfig(rpm) >= 5
+BuildRequires:	gettext
 
 # Bad Things(tm) happen if libdnf with armv8 detection is used
 # in conjunction with a build of dnf that doesn't know about
